@@ -138,7 +138,8 @@ game2048.prototype = {
 }
  
 var game, startBtn;
- 
+
+
 window.onload = function(){
     var container = document.getElementById('div2048');
     startBtn = document.getElementById('start');
@@ -149,10 +150,42 @@ window.onload = function(){
         game.init();
         game.getScore();
     }
+    var topDown = document.getElementById('top');
+var bottomDown = document.getElementById('bottom');
+var leftDown = document.getElementById('left');
+var rightDown = document.getElementById('right');
+var move = function (keychar){
+    if(['W', 'S', 'A', 'D'].indexOf(keychar) > -1){
+        if(game.over()){
+            game.clean();
+            startBtn.style.display = 'block';
+            startBtn.innerHTML = 'game over, replay?';
+            return;
+        }
+        game.move(keychar);
+        game.getScore();
+    }
+}
+    topDown.onclick = function() {
+        keychar = 'W';
+        move(keychar);
+    }
+    bottomDown.onclick = function() {
+        keychar = 'S';
+        move(keychar);
+    }
+    leftDown.onclick = function() {
+        keychar = 'A';
+        move(keychar);
+    }
+    rightDown.onclick = function() {
+        keychar = 'D';
+        move(keychar);
+    }
 }
  
-window.onkeydown = function(e){
-    var keynum, keychar;
+window.onkeydown =  function(e){
+    
     if(window.event){       // IE
         keynum = e.keyCode;
     }
